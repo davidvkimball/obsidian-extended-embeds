@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"name": "obsidian-extended-embeds",
+	"version": "0.0.1",
+	"description": "Embed rich media from GitHub, Spotify, CodePen, and more directly in your notes.",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
@@ -13,7 +13,7 @@
 		"version": "node version-bump.mjs && git add manifest.json versions.json",
 		"upgrade": "node scripts/upgrade.mjs"
 	},
-	"author": "",
+	"author": "David V. Kimball",
 	"license": "MIT",
 	"devDependencies": {
 		"@eslint/js": "^9.30.1",
