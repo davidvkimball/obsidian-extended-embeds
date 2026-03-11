@@ -4,7 +4,6 @@ import { createSettingsGroup } from "./utils/settings-compat";
 
 export interface ExtendedEmbedsSettings {
 	// Provider toggles
-	enableYoutube: boolean;
 	enableSpotify: boolean;
 	enableSoundcloud: boolean;
 	enableCodepen: boolean;
@@ -24,7 +23,6 @@ export interface ExtendedEmbedsSettings {
 }
 
 export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
-	enableYoutube: true,
 	enableSpotify: true,
 	enableSoundcloud: true,
 	enableCodepen: true,
@@ -53,7 +51,6 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		// Providers group
 		const providersGroup = createSettingsGroup(containerEl, "Providers");
 
-		this.addProviderToggle(providersGroup, "YouTube", "enableYoutube");
 		this.addProviderToggle(providersGroup, "Spotify", "enableSpotify");
 		this.addProviderToggle(providersGroup, "SoundCloud", "enableSoundcloud");
 		this.addProviderToggle(providersGroup, "CodePen", "enableCodepen");

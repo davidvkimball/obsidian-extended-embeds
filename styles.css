@@ -30,8 +30,7 @@
 	display: none !important;
 }
 
-/* Hide Obsidian's edit-block-button on iframe embeds (YouTube, Spotify, SoundCloud, CodePen) */
-.image-embed:has([data-extended-embed="youtube"]) > .edit-block-button,
+/* Hide Obsidian's edit-block-button on iframe embeds (Spotify, SoundCloud, CodePen) */
 .image-embed:has([data-extended-embed="spotify"]) > .edit-block-button,
 .image-embed:has([data-extended-embed="soundcloud"]) > .edit-block-button,
 .image-embed:has([data-extended-embed="codepen"]) > .edit-block-button {
@@ -62,22 +61,11 @@ p:has(> .extended-embed-hidden:only-child) {
 	font-style: normal;
 }
 
-/* ─── Iframe Embeds (YouTube, Spotify, SoundCloud, CodePen) ─── */
+/* ─── Iframe Embeds (Spotify, SoundCloud, CodePen) ─── */
 .extended-embed iframe {
 	width: 100%;
 	border: none;
 	border-radius: 8px;
-}
-
-.extended-embed-youtube iframe {
-	aspect-ratio: 16 / 9;
-	height: auto;
-}
-
-.extended-embed-youtube iframe.extended-embed-youtube-short {
-	aspect-ratio: 9 / 16;
-	max-width: 360px;
-	height: auto;
 }
 
 .extended-embed-spotify iframe {
@@ -117,6 +105,13 @@ p:has(> .extended-embed-hidden:only-child) {
 	padding: 0 !important;
 }
 
+/* Override Obsidian's global image constraints inside our cards */
+.extended-embed-card img {
+	max-width: none !important;
+	border-radius: 0 !important;
+	opacity: 1 !important;
+}
+
 /* Clickable title/name links inside cards */
 .extended-embed-card a {
 	text-decoration: none;
@@ -146,7 +141,7 @@ p:has(> .extended-embed-hidden:only-child) {
 
 /* GitHub repo card */
 .extended-embed-avatar {
-	border-radius: 4px;
+	border-radius: 4px !important;
 	flex-shrink: 0;
 }
 
@@ -265,7 +260,7 @@ p:has(> .extended-embed-hidden:only-child) {
 }
 
 .extended-embed-avatar-small {
-	border-radius: 50%;
+	border-radius: 50% !important;
 	flex-shrink: 0;
 }
 
@@ -335,12 +330,12 @@ p:has(> .extended-embed-hidden:only-child) {
 }
 
 .extended-embed-og-image {
-	width: 100%;
-	max-height: 200px;
+	display: block;
+	width: calc(100% + 32px) !important;
+	aspect-ratio: 1.91 / 1;
 	object-fit: cover;
-	border-radius: 6px 6px 0 0;
+	border-radius: 6px 6px 0 0 !important;
 	margin: -16px -16px 12px -16px;
-	width: calc(100% + 32px);
 }
 
 .extended-embed-og-body {
@@ -359,7 +354,7 @@ p:has(> .extended-embed-hidden:only-child) {
 
 .extended-embed-favicon {
 	flex-shrink: 0;
-	border-radius: 2px;
+	border-radius: 2px !important;
 }
 
 .extended-embed-og-title {

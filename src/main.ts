@@ -7,11 +7,11 @@ import { EmbedManager } from "./embed-manager";
 
 /**
  * Trigger keywords that activate the embed processor.
- * Users can write ![embed](url), ![spotify](url), ![gist](url), etc.
+ * Users can write ![embed](url), ![](url), ![spotify](url), ![gist](url), etc.
  */
 const TRIGGER_KEYWORDS = new Set([
+	"",
 	"embed",
-	"youtube",
 	"spotify",
 	"soundcloud",
 	"codepen",
@@ -22,7 +22,7 @@ const TRIGGER_KEYWORDS = new Set([
 
 /**
  * Parse the alt text to extract the trigger keyword and optional width.
- * Supports: "embed", "embed|400", "embed|400x300", "spotify", "gist|600", etc.
+ * Supports: "", "embed", "embed|400", "embed|400x300", "spotify", "gist|600", etc.
  * Returns null if the alt text doesn't match a trigger.
  */
 function parseAltText(alt: string): { width?: number; height?: number } | null {
@@ -121,30 +121,17 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 	}
 
 	private registerInsertCommands(): void {
-		const commands: Array<{ id: string; name: string; alt: string }> = [
-			{ id: "insert-embed", name: "Insert embed", alt: "embed" },
-			{ id: "insert-github-repo", name: "Insert GitHub repo embed", alt: "github" },
-			{ id: "insert-github-issue", name: "Insert GitHub issue/PR embed", alt: "github" },
-			{ id: "insert-gist", name: "Insert GitHub Gist embed", alt: "gist" },
-			{ id: "insert-spotify", name: "Insert Spotify embed", alt: "spotify" },
-			{ id: "insert-youtube", name: "Insert YouTube embed", alt: "youtube" },
-			{ id: "insert-codepen", name: "Insert CodePen embed", alt: "codepen" },
-			{ id: "insert-soundcloud", name: "Insert SoundCloud embed", alt: "soundcloud" },
-		];
-
-		for (const cmd of commands) {
-			this.addCommand({
-				id: cmd.id,
-				name: cmd.name,
-				editorCallback: (editor: Editor) => {
-					const cursor = editor.getCursor();
-					const template = `![${cmd.alt}]()`;
-					editor.replaceRange(template, cursor);
-					// Place cursor between the parentheses
-					editor.setCursor({ line: cursor.line, ch: cursor.ch + cmd.alt.length + 4 });
-				},
-			});
-		}
+		this.addCommand({
+			id: "insert-web-embed",
+			name: "Add web embed",
+			editorCallback: (editor: Editor) => {
+				const cursor = editor.getCursor();
+				const template = "![]()";
+				editor.replaceRange(template, cursor);
+				// Place cursor between the parentheses
+				editor.setCursor({ line: cursor.line, ch: cursor.ch + 4 });
+			},
+		});
 	}
 
 	/**
@@ -156,6 +143,9 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 
 		for (const img of Array.from(images)) {
 			if (img.hasAttribute(PROCESSED_ATTR)) continue;
+
+			// Skip images inside our own embed cards (e.g. OG images, avatars)
+			if (img.closest(".extended-embed-wrapper")) continue;
 
 			const alt = img.alt ?? img.getAttribute("alt") ?? "";
 			const src = img.src ?? img.getAttribute("src") ?? "";

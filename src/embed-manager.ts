@@ -2,7 +2,6 @@ import type { EmbedProvider, ThemeMode } from "./providers/base";
 import type { CacheManager } from "./cache";
 import type { ExtendedEmbedsSettings } from "./settings";
 
-import { youtubeProvider } from "./providers/youtube";
 import { spotifyProvider } from "./providers/spotify";
 import { soundcloudProvider } from "./providers/soundcloud";
 import { codepenProvider } from "./providers/codepen";
@@ -28,7 +27,6 @@ export class EmbedManager {
 		this.providers = [];
 
 		// Order matters: specific providers first, opengraph last as fallback
-		if (s.enableYoutube) this.providers.push(youtubeProvider);
 		if (s.enableSpotify) this.providers.push(spotifyProvider);
 		if (s.enableSoundcloud) this.providers.push(soundcloudProvider);
 		if (s.enableCodepen) this.providers.push(codepenProvider);
