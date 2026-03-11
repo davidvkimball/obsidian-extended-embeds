@@ -38,9 +38,16 @@
 	display: none !important;
 }
 
-/* Collapse the empty <p> that wraps the hidden original image in reading mode */
+/* Collapse the empty <p> margins in reading mode (it still contains the hidden img) */
 p:has(> .extended-embed-hidden:only-child) {
-	display: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	line-height: 0 !important;
+}
+
+/* Reading mode: add spacing between embeds since we removed the <p> margins */
+.markdown-preview-view .extended-embed-wrapper {
+	margin: 1em 0;
 }
 
 /* Loading / Error */
@@ -102,6 +109,12 @@ p:has(> .extended-embed-hidden:only-child) {
 	padding: 16px;
 	color: inherit;
 	overflow: hidden;
+}
+
+/* Override Obsidian's reading mode paragraph margins inside our cards */
+.extended-embed-card p {
+	margin: 4px 0 !important;
+	padding: 0 !important;
 }
 
 /* Clickable title/name links inside cards */
