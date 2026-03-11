@@ -1,5 +1,26 @@
 /* Extended Embeds - Core */
-.extended-embed-hidden {
+.block-language-embed {
+	margin: 0;
+	padding: 0;
+}
+
+/* Hide edit-block-button on iframe embeds (Spotify, SoundCloud, CodePen) */
+.extended-embed-spotify ~ .edit-block-button,
+.extended-embed-soundcloud ~ .edit-block-button,
+.extended-embed-codepen ~ .edit-block-button {
+	display: none !important;
+}
+
+/* Also target when wrapper is inside block-language-embed */
+.block-language-embed:has(.extended-embed-spotify) + .edit-block-button,
+.block-language-embed:has(.extended-embed-soundcloud) + .edit-block-button,
+.block-language-embed:has(.extended-embed-codepen) + .edit-block-button {
+	display: none !important;
+}
+
+.cm-preview-code-block:has(.extended-embed-spotify) > .edit-block-button,
+.cm-preview-code-block:has(.extended-embed-soundcloud) > .edit-block-button,
+.cm-preview-code-block:has(.extended-embed-codepen) > .edit-block-button {
 	display: none !important;
 }
 
@@ -8,6 +29,12 @@
 	width: 100%;
 	min-width: 0;
 	position: relative;
+}
+
+/* Override Obsidian's global image constraints inside our cards */
+.extended-embed-card img {
+	max-width: none !important;
+	opacity: 1 !important;
 }
 
 /* Custom width sizing */
@@ -23,30 +50,6 @@
 .extended-embed-wrapper.extended-embed-custom-width iframe {
 	max-width: var(--embed-width);
 	height: var(--embed-height, auto);
-}
-
-/* Hide Obsidian's image resize corner inside our processed embeds */
-.image-embed:has([data-extended-embed]) > .image-wrapper > .image-resize-corner {
-	display: none !important;
-}
-
-/* Hide Obsidian's edit-block-button on iframe embeds (Spotify, SoundCloud, CodePen) */
-.image-embed:has([data-extended-embed="spotify"]) > .edit-block-button,
-.image-embed:has([data-extended-embed="soundcloud"]) > .edit-block-button,
-.image-embed:has([data-extended-embed="codepen"]) > .edit-block-button {
-	display: none !important;
-}
-
-/* Collapse the empty <p> margins in reading mode (it still contains the hidden img) */
-p:has(> .extended-embed-hidden:only-child) {
-	margin: 0 !important;
-	padding: 0 !important;
-	line-height: 0 !important;
-}
-
-/* Reading mode: add spacing between embeds since we removed the <p> margins */
-.markdown-preview-view .extended-embed-wrapper {
-	margin: 1em 0;
 }
 
 /* Loading / Error */
@@ -99,17 +102,9 @@ p:has(> .extended-embed-hidden:only-child) {
 	overflow: hidden;
 }
 
-/* Override Obsidian's reading mode paragraph margins inside our cards */
 .extended-embed-card p {
-	margin: 4px 0 !important;
-	padding: 0 !important;
-}
-
-/* Override Obsidian's global image constraints inside our cards */
-.extended-embed-card img {
-	max-width: none !important;
-	border-radius: 0 !important;
-	opacity: 1 !important;
+	margin: 4px 0;
+	padding: 0;
 }
 
 /* Clickable title/name links inside cards */
@@ -141,7 +136,7 @@ p:has(> .extended-embed-hidden:only-child) {
 
 /* GitHub repo card */
 .extended-embed-avatar {
-	border-radius: 4px !important;
+	border-radius: 4px;
 	flex-shrink: 0;
 }
 
@@ -260,7 +255,7 @@ p:has(> .extended-embed-hidden:only-child) {
 }
 
 .extended-embed-avatar-small {
-	border-radius: 50% !important;
+	border-radius: 50%;
 	flex-shrink: 0;
 }
 
@@ -272,7 +267,7 @@ p:has(> .extended-embed-hidden:only-child) {
 
 .extended-embed-gist-owner {
 	font-weight: 600;
-	color: var(--text-normal) !important;
+	color: var(--text-normal);
 }
 
 .extended-embed-gist-title {
@@ -329,13 +324,25 @@ p:has(> .extended-embed-hidden:only-child) {
 	flex-direction: column;
 }
 
-.extended-embed-og-image {
+.extended-embed-og-image-link {
 	display: block;
 	width: calc(100% + 32px) !important;
+	max-width: none !important;
+	margin: -16px -16px 12px -16px;
+	line-height: 0;
+	text-decoration: none;
+	border-radius: 6px 6px 0 0;
+	overflow: hidden;
+}
+
+.extended-embed-og-image {
+	display: block !important;
+	width: 100% !important;
+	max-width: none !important;
 	aspect-ratio: 1.91 / 1;
 	object-fit: cover;
 	border-radius: 6px 6px 0 0 !important;
-	margin: -16px -16px 12px -16px;
+	margin: 0;
 }
 
 .extended-embed-og-body {
@@ -354,7 +361,7 @@ p:has(> .extended-embed-hidden:only-child) {
 
 .extended-embed-favicon {
 	flex-shrink: 0;
-	border-radius: 2px !important;
+	border-radius: 2px;
 }
 
 .extended-embed-og-title {

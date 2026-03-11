@@ -87,9 +87,13 @@ export function createOpenGraphProvider(cache: CacheManager): EmbedProvider {
 				cls: `extended-embed-card extended-embed-og-card ${isDark ? "extended-embed-dark" : "extended-embed-light"}`,
 			});
 
-			// Image (if available)
+			// Image (if available, clickable)
 			if (data.image) {
-				card.createEl("img", {
+				const imageLink = card.createEl("a", {
+					cls: "extended-embed-og-image-link",
+					attr: { href: data.url, target: "_blank", rel: "noopener noreferrer" },
+				});
+				imageLink.createEl("img", {
 					cls: "extended-embed-og-image",
 					attr: { src: data.image, alt: data.title, loading: "lazy" },
 				});
