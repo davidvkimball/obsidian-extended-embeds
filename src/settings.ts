@@ -5,8 +5,11 @@ import { createSettingsGroup } from "./utils/settings-compat";
 export interface ExtendedEmbedsSettings {
 	// Provider toggles
 	enableSpotify: boolean;
+	enableAppleMusic: boolean;
 	enableSoundcloud: boolean;
+	enableBandcamp: boolean;
 	enableCodepen: boolean;
+	enableFigma: boolean;
 	enableGithubGist: boolean;
 	enableGithubRepo: boolean;
 	enableGithubIssue: boolean;
@@ -24,8 +27,11 @@ export interface ExtendedEmbedsSettings {
 
 export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
 	enableSpotify: true,
+	enableAppleMusic: true,
 	enableSoundcloud: true,
+	enableBandcamp: true,
 	enableCodepen: true,
+	enableFigma: true,
 	enableGithubGist: true,
 	enableGithubRepo: true,
 	enableGithubIssue: true,
@@ -52,8 +58,11 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		const providersGroup = createSettingsGroup(containerEl, "Providers");
 
 		this.addProviderToggle(providersGroup, "Spotify", "enableSpotify");
+		this.addProviderToggle(providersGroup, "Apple Music", "enableAppleMusic");
 		this.addProviderToggle(providersGroup, "SoundCloud", "enableSoundcloud");
+		this.addProviderToggle(providersGroup, "Bandcamp", "enableBandcamp");
 		this.addProviderToggle(providersGroup, "CodePen", "enableCodepen");
+		this.addProviderToggle(providersGroup, "Figma", "enableFigma");
 		this.addProviderToggle(providersGroup, "GitHub Gist", "enableGithubGist");
 		this.addProviderToggle(providersGroup, "GitHub repository", "enableGithubRepo");
 		this.addProviderToggle(providersGroup, "GitHub issue/PR", "enableGithubIssue");

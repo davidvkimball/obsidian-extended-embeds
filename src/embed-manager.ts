@@ -3,8 +3,11 @@ import type { CacheManager } from "./cache";
 import type { ExtendedEmbedsSettings } from "./settings";
 
 import { spotifyProvider } from "./providers/spotify";
+import { appleMusicProvider } from "./providers/apple-music";
 import { soundcloudProvider } from "./providers/soundcloud";
+import { bandcampProvider } from "./providers/bandcamp";
 import { codepenProvider } from "./providers/codepen";
+import { figmaProvider } from "./providers/figma";
 import { createGithubGistProvider } from "./providers/github-gist";
 import { createGithubRepoProvider } from "./providers/github-repo";
 import { createGithubIssueProvider } from "./providers/github-issue";
@@ -28,8 +31,11 @@ export class EmbedManager {
 
 		// Order matters: specific providers first, opengraph last as fallback
 		if (s.enableSpotify) this.providers.push(spotifyProvider);
+		if (s.enableAppleMusic) this.providers.push(appleMusicProvider);
 		if (s.enableSoundcloud) this.providers.push(soundcloudProvider);
+		if (s.enableBandcamp) this.providers.push(bandcampProvider);
 		if (s.enableCodepen) this.providers.push(codepenProvider);
+		if (s.enableFigma) this.providers.push(figmaProvider);
 		if (s.enableGithubGist) this.providers.push(createGithubGistProvider(this.cache, token));
 		if (s.enableGithubIssue) this.providers.push(createGithubIssueProvider(this.cache, token));
 		if (s.enableGithubRepo) this.providers.push(createGithubRepoProvider(this.cache, token));

@@ -19,8 +19,11 @@
 }
 
 .cm-preview-code-block:has(.extended-embed-spotify) > .edit-block-button,
+.cm-preview-code-block:has(.extended-embed-apple-music) > .edit-block-button,
 .cm-preview-code-block:has(.extended-embed-soundcloud) > .edit-block-button,
-.cm-preview-code-block:has(.extended-embed-codepen) > .edit-block-button {
+.cm-preview-code-block:has(.extended-embed-bandcamp) > .edit-block-button,
+.cm-preview-code-block:has(.extended-embed-codepen) > .edit-block-button,
+.cm-preview-code-block:has(.extended-embed-figma) > .edit-block-button {
 	display: none !important;
 }
 
@@ -89,6 +92,23 @@
 
 .extended-embed-codepen iframe {
 	height: 400px;
+}
+
+.extended-embed-apple-music iframe {
+	width: 100%;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.extended-embed-bandcamp iframe {
+	width: 100%;
+	border: none;
+}
+
+.extended-embed-figma iframe {
+	width: 100%;
+	height: 450px;
+	border-radius: 8px;
 }
 
 /* ─── Card Embeds (GitHub Repo, Issue, Gist, Open Graph) ─── */
