@@ -1,3 +1,4 @@
+import { type App, requireApiVersion } from "obsidian";
 import type { EmbedProvider, ThemeMode } from "./providers/base";
 import type { CacheManager } from "./cache";
 import type { ExtendedEmbedsSettings } from "./settings";
@@ -19,13 +20,24 @@ export class EmbedManager {
 	constructor(
 		private settings: ExtendedEmbedsSettings,
 		private cache: CacheManager,
+		private app: App,
 	) {
 		this.rebuildProviders();
 	}
 
+	private getGithubToken(): string {
+		if (requireApiVersion("1.11.4") && this.settings.githubTokenSecretId) {
+			const secretStorage = (this.app as unknown as { secretStorage?: { getSecret(id: string): string | null } }).secretStorage;
+			if (secretStorage) {
+				return secretStorage.getSecret(this.settings.githubTokenSecretId) ?? "";
+			}
+		}
+		return this.settings.githubToken;
+	}
+
 	rebuildProviders(): void {
 		const s = this.settings;
-		const token = s.githubToken;
+		const token = this.getGithubToken();
 
 		this.providers = [];
 

@@ -1,4 +1,4 @@
-import { Editor, MarkdownRenderChild, Plugin } from "obsidian";
+import { Editor, MarkdownRenderChild, Notice, Plugin, requireApiVersion } from "obsidian";
 import { DEFAULT_SETTINGS, ExtendedEmbedsSettingTab } from "./settings";
 import type { ExtendedEmbedsSettings } from "./settings";
 import { createCacheManager } from "./cache";
@@ -44,9 +44,10 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 
 	async onload(): Promise<void> {
 		await this.loadSettings();
+		await this.migrateTokenToSecret();
 
 		this.cache = createCacheManager(this.settings.cacheTtlMinutes);
-		this.embedManager = new EmbedManager(this.settings, this.cache);
+		this.embedManager = new EmbedManager(this.settings, this.cache, this.app);
 
 		this.addSettingTab(new ExtendedEmbedsSettingTab(this.app, this));
 
@@ -88,6 +89,26 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 		});
 	}
 
+	/**
+	 * One-time migration of plaintext GitHub token to SecretStorage (1.11.4+).
+	 */
+	private async migrateTokenToSecret(): Promise<void> {
+		if (!requireApiVersion("1.11.4")) return;
+		if (this.settings.githubTokenSecretId || !this.settings.githubToken) return;
+
+		const secretStorage = (this.app as unknown as { secretStorage?: { setSecret(id: string, secret: string): void } }).secretStorage;
+		if (!secretStorage) return;
+
+		const secretId = "extended-embeds-github-token";
+		try {
+			secretStorage.setSecret(secretId, this.settings.githubToken);
+			this.settings.githubTokenSecretId = secretId;
+			await this.saveSettings();
+		} catch {
+			new Notice("Failed to migrate token to secure storage, please re-enter it in settings.");
+		}
+	}
+
 	async loadSettings(): Promise<void> {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData() as Partial<ExtendedEmbedsSettings>);
 	}
@@ -96,7 +117,7 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 		await this.saveData(this.settings);
 		if (this.embedManager) {
 			this.cache = createCacheManager(this.settings.cacheTtlMinutes);
-			this.embedManager = new EmbedManager(this.settings, this.cache);
+			this.embedManager = new EmbedManager(this.settings, this.cache, this.app);
 		}
 	}
 }

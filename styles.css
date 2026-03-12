@@ -1,6 +1,6 @@
 /* Extended Embeds - Core */
 .block-language-embed {
-	margin: 0;
+	margin: 1em 0;
 	padding: 0;
 }
 
@@ -330,6 +330,10 @@
 	max-height: 300px;
 	background-color: var(--code-background);
 	position: relative;
+}
+
+.extended-embed-gist-code::-webkit-scrollbar {
+	cursor: default;
 }
 
 .extended-embed-gist-code code {

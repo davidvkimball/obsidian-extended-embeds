@@ -1,6 +1,17 @@
-import { App, PluginSettingTab } from "obsidian";
+import { App, BaseComponent, PluginSettingTab, requireApiVersion } from "obsidian";
 import type ExtendedEmbedsPlugin from "./main";
 import { createSettingsGroup } from "./utils/settings-compat";
+
+/**
+ * Interface for SecretComponent accessed via dynamic require.
+ * SecretComponent is not available in type definitions for all Obsidian versions.
+ */
+interface SecretComponentType {
+	new(app: App, el: HTMLElement): BaseComponent & {
+		setValue(value: string): void;
+		onChange(callback: (value: string) => void): void;
+	};
+}
 
 export interface ExtendedEmbedsSettings {
 	// Provider toggles
@@ -17,6 +28,7 @@ export interface ExtendedEmbedsSettings {
 
 	// GitHub authentication
 	githubToken: string;
+	githubTokenSecretId: string;
 
 	// Display
 	themeMode: "auto" | "dark" | "light";
@@ -38,6 +50,7 @@ export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
 	enableOpengraph: true,
 
 	githubToken: "",
+	githubTokenSecretId: "",
 	themeMode: "auto",
 	cacheTtlMinutes: 60,
 };
@@ -72,18 +85,38 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		const githubGroup = createSettingsGroup(containerEl, "GitHub");
 
 		githubGroup.addSetting((setting) => {
-			setting
-				.setName("Personal access token")
-				.setDesc("Optional. Increases API rate limit from 60 to 5,000 requests/hour. Only needs public repo read access.")
-				.addText((text) =>
-					text
-						.setPlaceholder("Paste token here")
-						.setValue(this.plugin.settings.githubToken)
-						.onChange(async (value: string) => {
-							this.plugin.settings.githubToken = value;
-							await this.plugin.saveSettings();
-						}),
-				);
+			setting.setName("Personal access token");
+
+			if (requireApiVersion("1.11.4")) {
+				setting
+					.setDesc("Choose a secret that contains your GitHub personal access token. Only needs public repo read access.")
+					.addComponent((el) => {
+						// eslint-disable-next-line @typescript-eslint/no-require-imports -- SecretComponent not in type definitions for all Obsidian versions
+					const obsidian = require("obsidian") as { SecretComponent?: SecretComponentType };
+						const SecretComponent = obsidian.SecretComponent as SecretComponentType;
+						const component = new SecretComponent(this.app, el);
+						component.setValue(this.plugin.settings.githubTokenSecretId);
+						component.onChange((value: string) => {
+							void (async () => {
+								this.plugin.settings.githubTokenSecretId = value;
+								await this.plugin.saveSettings();
+							})();
+						});
+						return component;
+					});
+			} else {
+				setting
+					.setDesc("Optional. Increases API rate limit from 60 to 5,000 requests/hour. Only needs public repo read access.")
+					.addText((text) =>
+						text
+							.setPlaceholder("Paste token here")
+							.setValue(this.plugin.settings.githubToken)
+							.onChange(async (value: string) => {
+								this.plugin.settings.githubToken = value;
+								await this.plugin.saveSettings();
+							}),
+					);
+			}
 		});
 
 		// Display group
