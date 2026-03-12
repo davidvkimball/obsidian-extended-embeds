@@ -1,6 +1,7 @@
 import { requestUrl } from "obsidian";
 import type { EmbedProvider, ThemeMode } from "./base";
 import type { CacheManager } from "../cache";
+import { githubIcon } from "./brand-icons";
 
 const ISSUE_PATTERN = /^https?:\/\/github\.com\/([a-zA-Z0-9._-]+)\/([a-zA-Z0-9._-]+)\/(issues|pull)\/(\d+)\/?$/;
 
@@ -105,6 +106,7 @@ export function createGithubIssueProvider(cache: CacheManager, token: string): E
 				text: data.title,
 				attr: { href: data.html_url, target: "_blank", rel: "noopener noreferrer" },
 			});
+			header.appendChild(githubIcon());
 
 			// Subtitle: repo + number
 			card.createEl("p", {

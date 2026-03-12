@@ -12,6 +12,9 @@ import { figmaProvider } from "./providers/figma";
 import { createGithubGistProvider } from "./providers/github-gist";
 import { createGithubRepoProvider } from "./providers/github-repo";
 import { createGithubIssueProvider } from "./providers/github-issue";
+import { createRedditProvider } from "./providers/reddit";
+import { createBlueskyProvider } from "./providers/bluesky";
+import { createMastodonProvider } from "./providers/mastodon";
 import { createOpenGraphProvider } from "./providers/opengraph";
 
 export class EmbedManager {
@@ -51,6 +54,9 @@ export class EmbedManager {
 		if (s.enableGithubGist) this.providers.push(createGithubGistProvider(this.cache, token));
 		if (s.enableGithubIssue) this.providers.push(createGithubIssueProvider(this.cache, token));
 		if (s.enableGithubRepo) this.providers.push(createGithubRepoProvider(this.cache, token));
+		if (s.enableReddit) this.providers.push(createRedditProvider(this.cache));
+		if (s.enableBluesky) this.providers.push(createBlueskyProvider(this.cache));
+		if (s.enableMastodon) this.providers.push(createMastodonProvider(this.cache));
 		if (s.enableOpengraph) this.providers.push(createOpenGraphProvider(this.cache));
 	}
 

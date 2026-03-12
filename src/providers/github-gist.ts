@@ -1,6 +1,7 @@
 import { requestUrl, setIcon } from "obsidian";
 import type { EmbedProvider, ThemeMode } from "./base";
 import type { CacheManager } from "../cache";
+import { githubIcon } from "./brand-icons";
 
 const GIST_PATTERN = /gist\.github\.com\/([a-zA-Z0-9_-]+)\/([a-f0-9]+)/;
 
@@ -95,6 +96,7 @@ export function createGithubGistProvider(cache: CacheManager, token: string): Em
 					attr: { href: `https://github.com/${data.owner.login}`, target: "_blank", rel: "noopener noreferrer" },
 				});
 			}
+			header.appendChild(githubIcon());
 
 			// Gist title (description or fallback) - links to the gist
 			const gistTitle = data.description || Object.keys(data.files)[0] || "View gist";

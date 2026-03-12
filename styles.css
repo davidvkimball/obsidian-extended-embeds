@@ -152,6 +152,14 @@
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 8px;
+	flex-wrap: wrap;
+}
+
+/* Brand icon (pushed to far right of header) */
+.extended-embed-brand-icon {
+	margin-left: auto;
+	flex-shrink: 0;
+	opacity: 0.7;
 }
 
 /* GitHub repo card */
@@ -400,4 +408,128 @@
 	font-size: 0.9em;
 	color: var(--text-muted);
 	line-height: 1.4;
+}
+
+/* ─── Reddit Post Card ─── */
+.extended-embed-reddit-subreddit {
+	font-weight: 600;
+	font-size: 0.85em;
+}
+
+.extended-embed-reddit-meta {
+	font-size: 0.8em;
+	color: var(--text-muted);
+}
+
+.extended-embed-reddit-author-link {
+	color: var(--text-muted);
+	text-decoration: none;
+}
+
+.extended-embed-reddit-author-link:hover {
+	text-decoration: underline;
+}
+
+.extended-embed-reddit-flair {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 12px;
+	font-size: 0.75em;
+	font-weight: 500;
+	background-color: var(--background-modifier-hover);
+	color: var(--text-muted);
+}
+
+.extended-embed-reddit-title {
+	display: block;
+	margin: 8px 0 4px;
+	font-weight: 600;
+	font-size: 1em;
+	line-height: 1.3;
+}
+
+.extended-embed-reddit-body {
+	margin: 4px 0 12px;
+	font-size: 0.9em;
+	color: var(--text-muted);
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+/* ─── Bluesky Post Card ─── */
+.extended-embed-bluesky-author {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.extended-embed-bluesky-displayname {
+	font-weight: 600;
+}
+
+.extended-embed-bluesky-handle {
+	font-size: 0.85em;
+	color: var(--text-muted);
+	text-decoration: none;
+}
+
+.extended-embed-bluesky-handle:hover {
+	text-decoration: underline;
+}
+
+.extended-embed-bluesky-text {
+	margin: 8px 0 12px;
+	font-size: 0.95em;
+	line-height: 1.5;
+	color: var(--text-normal);
+	white-space: pre-wrap;
+}
+
+.extended-embed-bluesky-media {
+	display: block;
+	width: 100%;
+	max-height: 300px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 12px;
+}
+
+/* ─── Mastodon Post Card ─── */
+.extended-embed-mastodon-author {
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+
+.extended-embed-mastodon-displayname {
+	font-weight: 600;
+}
+
+.extended-embed-mastodon-handle {
+	font-size: 0.85em;
+	color: var(--text-muted);
+	text-decoration: none;
+}
+
+.extended-embed-mastodon-handle:hover {
+	text-decoration: underline;
+}
+
+.extended-embed-mastodon-text {
+	margin: 8px 0 12px;
+	font-size: 0.95em;
+	line-height: 1.5;
+	color: var(--text-normal);
+	white-space: pre-wrap;
+}
+
+.extended-embed-mastodon-media {
+	display: block;
+	width: 100%;
+	max-height: 300px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin-bottom: 12px;
 }

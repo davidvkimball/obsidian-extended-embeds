@@ -1,6 +1,7 @@
 import { requestUrl, setIcon } from "obsidian";
 import type { EmbedProvider, ThemeMode } from "./base";
 import type { CacheManager } from "../cache";
+import { githubIcon } from "./brand-icons";
 
 const REPO_PATTERN = /^https?:\/\/github\.com\/([a-zA-Z0-9._-]+)\/([a-zA-Z0-9._-]+)\/?$/;
 
@@ -119,6 +120,7 @@ export function createGithubRepoProvider(cache: CacheManager, token: string): Em
 				text: data.full_name,
 				attr: { href: data.html_url, target: "_blank", rel: "noopener noreferrer" },
 			});
+			header.appendChild(githubIcon());
 
 			// Description
 			if (data.description) {

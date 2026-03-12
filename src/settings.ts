@@ -24,6 +24,9 @@ export interface ExtendedEmbedsSettings {
 	enableGithubGist: boolean;
 	enableGithubRepo: boolean;
 	enableGithubIssue: boolean;
+	enableReddit: boolean;
+	enableBluesky: boolean;
+	enableMastodon: boolean;
 	enableOpengraph: boolean;
 
 	// GitHub authentication
@@ -47,6 +50,9 @@ export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
 	enableGithubGist: true,
 	enableGithubRepo: true,
 	enableGithubIssue: true,
+	enableReddit: true,
+	enableBluesky: true,
+	enableMastodon: true,
 	enableOpengraph: true,
 
 	githubToken: "",
@@ -79,6 +85,9 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		this.addProviderToggle(providersGroup, "GitHub Gist", "enableGithubGist");
 		this.addProviderToggle(providersGroup, "GitHub repository", "enableGithubRepo");
 		this.addProviderToggle(providersGroup, "GitHub issue/PR", "enableGithubIssue");
+		this.addProviderToggle(providersGroup, "Reddit", "enableReddit");
+		this.addProviderToggle(providersGroup, "Bluesky", "enableBluesky");
+		this.addProviderToggle(providersGroup, "Mastodon", "enableMastodon");
 		this.addProviderToggle(providersGroup, "Generic URL preview (Open Graph)", "enableOpengraph");
 
 		// GitHub group
