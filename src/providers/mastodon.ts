@@ -37,14 +37,25 @@ function formatCount(n: number): string {
 }
 
 function htmlToPlainText(html: string): string {
-	// Replace <br> and closing block tags with newlines before stripping
-	const withBreaks = html
-		.replace(/<br\s*\/?>/gi, "\n")
-		.replace(/<\/p>/gi, "\n")
-		.replace(/<\/div>/gi, "\n");
-	const doc = new DOMParser().parseFromString(withBreaks, "text/html");
-	// Collapse multiple newlines into double newlines (paragraph breaks)
-	return (doc.body.textContent ?? "").replace(/\n{3,}/g, "\n\n").trim();
+	const doc = new DOMParser().parseFromString(html, "text/html");
+	const paragraphs: string[] = [];
+	const ps = doc.querySelectorAll("p");
+	if (ps.length > 0) {
+		ps.forEach((p) => {
+			// Convert <br> to newlines within each paragraph
+			const inner = p.innerHTML.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "");
+			const tmp = document.createElement("span");
+			tmp.innerHTML = inner;
+			paragraphs.push(tmp.textContent ?? "");
+		});
+	} else {
+		// Fallback if no <p> tags
+		const inner = html.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "");
+		const tmp = document.createElement("span");
+		tmp.innerHTML = inner;
+		paragraphs.push(tmp.textContent ?? "");
+	}
+	return paragraphs.join("\n\n").trim();
 }
 
 export function createMastodonProvider(cache: CacheManager): EmbedProvider {

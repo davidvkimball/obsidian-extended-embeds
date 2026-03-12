@@ -87,11 +87,11 @@ export function createOpenGraphProvider(cache: CacheManager): EmbedProvider {
 				cls: `extended-embed-card extended-embed-og-card ${isDark ? "extended-embed-dark" : "extended-embed-light"}`,
 			});
 
-			// Image (if available, clickable)
+			// Image (if available, clickable) - side by side with body
 			if (data.image) {
 				const imageLink = card.createEl("a", {
 					cls: "extended-embed-og-image-link",
-					attr: { href: data.url, target: "_blank", rel: "noopener noreferrer" },
+					attr: { href: data.url, target: "_blank" },
 				});
 				imageLink.createEl("img", {
 					cls: "extended-embed-og-image",
@@ -113,7 +113,7 @@ export function createOpenGraphProvider(cache: CacheManager): EmbedProvider {
 			body.createEl("a", {
 				cls: "extended-embed-og-title",
 				text: data.title,
-				attr: { href: data.url, target: "_blank", rel: "noopener noreferrer" },
+				attr: { href: data.url, target: "_blank" },
 			});
 
 			// Description

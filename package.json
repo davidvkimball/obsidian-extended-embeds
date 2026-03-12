@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-extended-embeds",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Embed rich media from GitHub, Spotify, CodePen, and more directly in your notes.",
 	"main": "main.js",
 	"type": "module",
