@@ -4,11 +4,11 @@ Embed rich media from GitHub, Spotify, CodePen, and more directly in your notes.
 
 ## Features
 
-Use the `![embed](url)` syntax to embed rich media previews in reading mode. Extended Embeds detects the URL and renders the appropriate embed automatically.
+Use fenced code blocks with the `embed` language identifier to embed rich media previews in reading mode. Extended Embeds detects the URL and renders the appropriate embed automatically.
 
 ### Supported Providers
 
-- **YouTube** - Video player (privacy-enhanced, timestamp support, Shorts detection)
+- **Vimeo** - Video player (supports standard and manage URLs)
 - **Spotify** - Track, album, playlist, episode, and show players
 - **SoundCloud** - Track player
 - **CodePen** - Pen embeds with theme support
@@ -19,18 +19,50 @@ Use the `![embed](url)` syntax to embed rich media previews in reading mode. Ext
 
 ### Usage
 
-In your Markdown notes, use the standard image syntax with `embed` as the alt text:
+In your Markdown notes, use a fenced code block with the `embed` language identifier:
 
-```markdown
-![embed](https://github.com/obsidianmd/obsidian-api)
-![embed](https://github.com/obsidianmd/obsidian-api/issues/1)
-![embed](https://open.spotify.com/track/4iV5W9uYEdYUVa79Axb7Rh)
-![embed](https://codepen.io/pen/abcdef)
-![embed](https://gist.github.com/user/abc123)
-![embed](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
-![embed](https://soundcloud.com/artist/track)
-![embed](https://example.com)
+````markdown
+```embed
+https://github.com/obsidianmd/obsidian-api
 ```
+
+```embed
+https://github.com/obsidianmd/obsidian-api/issues/1
+```
+
+```embed
+https://open.spotify.com/track/4iV5W9uYEdYUVa79Axb7Rh
+```
+
+```embed
+https://codepen.io/pen/abcdef
+```
+
+```embed
+https://gist.github.com/user/abc123
+```
+
+```embed
+https://vimeo.com/133845089
+```
+
+```embed
+https://soundcloud.com/artist/track
+```
+
+```embed
+https://example.com
+```
+````
+
+You can optionally specify a width (or width and height) on the second line:
+
+````markdown
+```embed
+https://codepen.io/pen/abcdef
+600x400
+```
+````
 
 ### Dark Mode
 

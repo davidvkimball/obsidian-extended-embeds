@@ -3,6 +3,7 @@ import type { EmbedProvider, ThemeMode } from "./providers/base";
 import type { CacheManager } from "./cache";
 import type { ExtendedEmbedsSettings } from "./settings";
 
+import { vimeoProvider } from "./providers/vimeo";
 import { spotifyProvider } from "./providers/spotify";
 import { appleMusicProvider } from "./providers/apple-music";
 import { soundcloudProvider } from "./providers/soundcloud";
@@ -45,6 +46,7 @@ export class EmbedManager {
 		this.providers = [];
 
 		// Order matters: specific providers first, opengraph last as fallback
+		if (s.enableVimeo) this.providers.push(vimeoProvider);
 		if (s.enableSpotify) this.providers.push(spotifyProvider);
 		if (s.enableAppleMusic) this.providers.push(appleMusicProvider);
 		if (s.enableSoundcloud) this.providers.push(soundcloudProvider);

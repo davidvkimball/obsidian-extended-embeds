@@ -15,6 +15,7 @@ interface SecretComponentType {
 
 export interface ExtendedEmbedsSettings {
 	// Provider toggles
+	enableVimeo: boolean;
 	enableSpotify: boolean;
 	enableAppleMusic: boolean;
 	enableSoundcloud: boolean;
@@ -41,6 +42,7 @@ export interface ExtendedEmbedsSettings {
 }
 
 export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
+	enableVimeo: true,
 	enableSpotify: true,
 	enableAppleMusic: true,
 	enableSoundcloud: true,
@@ -76,6 +78,7 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		// Providers group
 		const providersGroup = createSettingsGroup(containerEl, "Providers");
 
+		this.addProviderToggle(providersGroup, "Vimeo", "enableVimeo");
 		this.addProviderToggle(providersGroup, "Spotify", "enableSpotify");
 		this.addProviderToggle(providersGroup, "Apple Music", "enableAppleMusic");
 		this.addProviderToggle(providersGroup, "SoundCloud", "enableSoundcloud");
