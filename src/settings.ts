@@ -29,6 +29,7 @@ export interface ExtendedEmbedsSettings {
 	enableBluesky: boolean;
 	enableMastodon: boolean;
 	enableLinkedin: boolean;
+	enableSteam: boolean;
 	enableOpengraph: boolean;
 
 	// GitHub authentication
@@ -57,6 +58,7 @@ export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
 	enableBluesky: true,
 	enableMastodon: true,
 	enableLinkedin: true,
+	enableSteam: true,
 	enableOpengraph: true,
 
 	githubToken: "",
@@ -94,6 +96,7 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 		this.addProviderToggle(providersGroup, "Bluesky", "enableBluesky");
 		this.addProviderToggle(providersGroup, "Mastodon", "enableMastodon");
 		this.addProviderToggle(providersGroup, "LinkedIn", "enableLinkedin");
+		this.addProviderToggle(providersGroup, "Steam", "enableSteam");
 		this.addProviderToggle(providersGroup, "Generic URL preview (Open Graph)", "enableOpengraph");
 
 		// GitHub group

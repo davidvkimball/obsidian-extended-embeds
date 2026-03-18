@@ -17,6 +17,7 @@ import { createRedditProvider } from "./providers/reddit";
 import { createBlueskyProvider } from "./providers/bluesky";
 import { createMastodonProvider } from "./providers/mastodon";
 import { linkedinProvider } from "./providers/linkedin";
+import { steamProvider } from "./providers/steam";
 import { createOpenGraphProvider } from "./providers/opengraph";
 
 export class EmbedManager {
@@ -61,6 +62,7 @@ export class EmbedManager {
 		if (s.enableBluesky) this.providers.push(createBlueskyProvider(this.cache));
 		if (s.enableMastodon) this.providers.push(createMastodonProvider(this.cache));
 		if (s.enableLinkedin) this.providers.push(linkedinProvider);
+		if (s.enableSteam) this.providers.push(steamProvider);
 		if (s.enableOpengraph) this.providers.push(createOpenGraphProvider(this.cache));
 	}
 

@@ -9,7 +9,8 @@ Use fenced code blocks with the `embed` language identifier to embed rich media 
 ### Supported Providers
 
 - **Vimeo** - Video player (supports standard and manage URLs)
-- **Spotify** - Track, album, playlist, episode, and show players
+- **Spotify** - Track, album, playlist, episode, show, and podcast players
+- **Steam** - Store app, bundle, and package widgets
 - **SoundCloud** - Track player
 - **CodePen** - Pen embeds with theme support
 - **GitHub Gist** - Gist code embeds
@@ -32,6 +33,14 @@ https://github.com/obsidianmd/obsidian-api/issues/1
 
 ```embed
 https://open.spotify.com/track/4iV5W9uYEdYUVa79Axb7Rh
+```
+
+```embed
+https://creators.spotify.com/pod/profile/davidvkimball/episodes/Free-Trials-e26r5r5/a-aa459st
+```
+
+```embed
+https://store.steampowered.com/app/440
 ```
 
 ```embed
