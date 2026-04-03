@@ -1,7 +1,7 @@
 {
 	"id": "extended-embeds",
 	"name": "Extended Embeds",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"minAppVersion": "1.11.0",
 	"description": "Embed rich media from GitHub, Spotify, CodePen, and more directly in your notes.",
 	"author": "David V. Kimball",

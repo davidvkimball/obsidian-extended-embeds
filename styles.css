@@ -127,6 +127,36 @@
 	border-radius: 8px;
 }
 
+/* LinkedIn: mode-specific box (compact/collapsed/full differ inside the iframe) */
+.extended-embed-linkedin {
+	container-type: inline-size;
+	width: 100%;
+	min-width: 0;
+}
+
+.extended-embed-linkedin iframe {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+
+.extended-embed-linkedin[data-li-mode="full"] iframe,
+.extended-embed-linkedin:not([data-li-mode]) iframe {
+	aspect-ratio: 4 / 5;
+	max-height: min(88dvh, calc(100cqw * 1.35));
+}
+
+.extended-embed-linkedin[data-li-mode="compact"] iframe {
+	aspect-ratio: 16 / 9;
+	max-height: min(78dvh, calc(100cqw * 0.62));
+}
+
+.extended-embed-linkedin[data-li-mode="collapsed"] iframe {
+	aspect-ratio: 3 / 2;
+	max-height: min(70dvh, calc(100cqw * 0.72));
+}
+
 /* ─── Card Embeds (GitHub Repo, Issue, Gist, Open Graph) ─── */
 .extended-embed-card {
 	display: block;
