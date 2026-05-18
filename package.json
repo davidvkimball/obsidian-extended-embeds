@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-extended-embeds",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"description": "Embed rich media from GitHub, Spotify, CodePen, and more directly in your notes.",
 	"main": "main.js",
 	"type": "module",
@@ -26,13 +26,27 @@
 		"eslint-plugin-obsidianmd": "0.1.9",
 		"globals": "14.0.0",
 		"jiti": "2.6.1",
+		"obsidian": "^1.11.0",
 		"obsidian-dev-skills": "^1.0.2",
 		"tslib": "2.4.0",
 		"typescript": "5.8.3",
 		"typescript-eslint": "8.35.1"
 	},
-	"dependencies": {
-		"obsidian": "latest"
-	},
-	"packageManager": "pnpm@10.20.0"
+	"packageManager": "pnpm@10.20.0",
+	"pnpm": {
+		"overrides": {
+			"minimatch@<3.1.3": "^3.1.3",
+			"minimatch@^4 || ^5 || ^6 || ^7 || ^8": "^8.0.5",
+			"minimatch@^9": "^9.0.6",
+			"picomatch@<2.3.2": "^2.3.2",
+			"picomatch@^3 || ^4": "^4.0.4",
+			"brace-expansion@<1.1.13": "^1.1.13",
+			"brace-expansion@^2": "^2.0.3",
+			"ajv@<6.14.0": "^6.14.0",
+			"ajv@^7 || ^8": "^8.18.0",
+			"flatted@<3.4.0": "^3.4.0",
+			"fast-uri@<3.1.1": "^3.1.1",
+			"yaml@<2.8.3": "^2.8.3"
+		}
+	}
 }

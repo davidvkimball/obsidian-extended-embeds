@@ -283,17 +283,17 @@
 
 .extended-embed-state-open {
 	background-color: #238636;
-	color: #fff;
+	color: #ffffff;
 }
 
 .extended-embed-state-closed {
 	background-color: #da3633;
-	color: #fff;
+	color: #ffffff;
 }
 
 .extended-embed-state-merged {
 	background-color: #8957e5;
-	color: #fff;
+	color: #ffffff;
 }
 
 .extended-embed-issue-title {
