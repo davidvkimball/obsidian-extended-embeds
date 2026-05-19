@@ -36,24 +36,22 @@ function formatCount(n: number): string {
 	return String(n);
 }
 
+// Reads a parsed element as plain text: <br> becomes a newline and HTML
+// entities are decoded by the parser, so no innerHTML write is needed.
+function blockToText(el: Element): string {
+	el.querySelectorAll("br").forEach((br) => br.replaceWith("\n"));
+	return el.textContent ?? "";
+}
+
 function htmlToPlainText(html: string): string {
 	const doc = new DOMParser().parseFromString(html, "text/html");
 	const paragraphs: string[] = [];
 	const ps = doc.querySelectorAll("p");
 	if (ps.length > 0) {
-		ps.forEach((p) => {
-			// Convert <br> to newlines within each paragraph
-			const inner = p.innerHTML.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "");
-			const tmp = document.createElement("span");
-			tmp.innerHTML = inner;
-			paragraphs.push(tmp.textContent ?? "");
-		});
+		ps.forEach((p) => paragraphs.push(blockToText(p)));
 	} else {
 		// Fallback if no <p> tags
-		const inner = html.replace(/<br\s*\/?>/gi, "\n").replace(/<[^>]+>/g, "");
-		const tmp = document.createElement("span");
-		tmp.innerHTML = inner;
-		paragraphs.push(tmp.textContent ?? "");
+		paragraphs.push(blockToText(doc.body));
 	}
 	return paragraphs.join("\n\n").trim();
 }
