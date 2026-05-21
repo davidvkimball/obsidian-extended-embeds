@@ -86,20 +86,16 @@ Embeds automatically follow your Obsidian theme. You can also force dark or ligh
 
 ## Installation
 
-Extended Embeds is not yet available in the Community plugins section. Install using [BRAT](https://github.com/TfTHacker/obsidian42-brat) or manually:
+### Community Plugins Search
 
-### BRAT
+1. In Obsidian, go to Settings > Community plugins (enable it if you haven't already).
+2. Search for [Extended Embeds](https://obsidian.md/plugins?id=extended-embeds) and click Install and then Enable.
 
-1. Download the [Beta Reviewers Auto-update Tester (BRAT)](https://github.com/TfTHacker/obsidian42-brat) plugin from the [Obsidian community plugins directory](https://obsidian.md/plugins?id=obsidian42-brat) and enable it.
-2. In the BRAT plugin settings, select `Add beta plugin`.
-3. Paste the following: `https://github.com/davidvkimball/obsidian-extended-embeds` and select `Add plugin`.
+### Manual
 
-### Manual Installation
-
-1. Download the latest release
-2. Extract the files to your vault's `.obsidian/plugins/extended-embeds/` folder
-3. Reload Obsidian
-4. Enable the plugin in Settings > Community plugins
+1. Download the latest release from the [Releases page](https://github.com/davidvkimball/obsidian-extended-embeds/releases) and navigate to your Obsidian vault's `.obsidian/plugins/` directory.
+2. Create a new folder called `extended-embeds` and ensure `manifest.json`, `main.js`, and `styles.css` are in there.
+3. In Obsidian, go to Settings > Community plugins (enable it if you haven't already) and then enable "Extended Embeds."
 
 ## Development
 
