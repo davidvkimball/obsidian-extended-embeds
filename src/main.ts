@@ -37,6 +37,11 @@ function parseSource(source: string): { url: string; width?: number; height?: nu
 	return { url, width, height };
 }
 
+/** Detect a YouTube watch / share / shorts / embed / live URL. */
+function isYouTubeUrl(url: string): boolean {
+	return /^https?:\/\/(www\.)?(youtube\.com\/(watch\?v=|shorts\/|embed\/|live\/)|youtu\.be\/)/i.test(url);
+}
+
 export default class ExtendedEmbedsPlugin extends Plugin {
 	settings: ExtendedEmbedsSettings;
 	private cache: CacheManager;
@@ -52,6 +57,7 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 		this.addSettingTab(new ExtendedEmbedsSettingTab(this.app, this));
 
 		this.registerInsertCommand();
+		this.registerAutoEmbedOnPaste();
 
 		// Code block processor: ```embed
 		this.registerMarkdownCodeBlockProcessor("embed", (source, el, ctx) => {
@@ -87,6 +93,43 @@ export default class ExtendedEmbedsPlugin extends Plugin {
 				editor.setCursor({ line: cursor.line + 1, ch: 0 });
 			},
 		});
+	}
+
+	/**
+	 * Convert a supported link pasted on an empty line into an embed.
+	 * Specific providers become an ```embed block; YouTube becomes the native
+	 * ![](url) form (there is no embed-block renderer for it here, and that is what
+	 * Obsidian and downstream Astro pipelines expect). The Open Graph catch-all is
+	 * intentionally excluded so arbitrary URLs are never hijacked.
+	 */
+	private registerAutoEmbedOnPaste(): void {
+		this.registerEvent(
+			this.app.workspace.on("editor-paste", (evt: ClipboardEvent, editor: Editor) => {
+				if (!this.settings.autoEmbedOnPaste) return;
+				if (evt.defaultPrevented) return;
+
+				const text = evt.clipboardData?.getData("text")?.trim();
+				// Only act on a single bare URL, with no surrounding text.
+				if (!text || !/^https?:\/\/\S+$/.test(text)) return;
+
+				// Only on an empty line with no selection, so a URL pasted into the
+				// middle of a sentence is never touched.
+				if (editor.somethingSelected()) return;
+				const cursor = editor.getCursor();
+				if (editor.getLine(cursor.line).trim() !== "") return;
+
+				if (isYouTubeUrl(text)) {
+					evt.preventDefault();
+					editor.replaceSelection(`![](${text})`);
+					return;
+				}
+
+				if (this.embedManager.findSpecificProvider(text)) {
+					evt.preventDefault();
+					editor.replaceSelection("```embed\n" + text + "\n```");
+				}
+			}),
+		);
 	}
 
 	/**

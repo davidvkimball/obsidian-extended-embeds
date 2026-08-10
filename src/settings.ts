@@ -13,6 +13,9 @@ interface SecretComponentType {
 }
 
 export interface ExtendedEmbedsSettings {
+	// Global behavior
+	autoEmbedOnPaste: boolean;
+
 	// Provider toggles
 	enableVimeo: boolean;
 	enableSpotify: boolean;
@@ -43,6 +46,8 @@ export interface ExtendedEmbedsSettings {
 }
 
 export const DEFAULT_SETTINGS: ExtendedEmbedsSettings = {
+	autoEmbedOnPaste: true,
+
 	enableVimeo: true,
 	enableSpotify: true,
 	enableAppleMusic: true,
@@ -82,6 +87,11 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 	// See https://docs.obsidian.md/plugins/guides/migrate-declarative-settings
 	getSettingDefinitions() {
 		return [
+			{
+				name: "Convert pasted links to embeds",
+				desc: "When you paste a supported link on an empty line, replace it with an embed automatically.",
+				control: { type: "toggle" as const, key: "autoEmbedOnPaste" },
+			},
 			{
 				type: "group" as const,
 				heading: "Providers",
@@ -194,6 +204,19 @@ export class ExtendedEmbedsSettingTab extends PluginSettingTab {
 	display(): void {
 		const { containerEl } = this;
 		containerEl.empty();
+
+		// Global behavior (no heading, above Providers)
+		new Setting(containerEl)
+			.setName("Convert pasted links to embeds")
+			.setDesc("When you paste a supported link on an empty line, replace it with an embed automatically.")
+			.addToggle((toggle) =>
+				toggle
+					.setValue(this.plugin.settings.autoEmbedOnPaste)
+					.onChange(async (value: boolean) => {
+						this.plugin.settings.autoEmbedOnPaste = value;
+						await this.plugin.saveSettings();
+					}),
+			);
 
 		// Providers group
 		const providersGroup = new SettingGroup(containerEl).setHeading("Providers");

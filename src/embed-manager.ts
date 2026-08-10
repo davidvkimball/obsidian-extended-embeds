@@ -80,6 +80,19 @@ export class EmbedManager {
 		return null;
 	}
 
+	/**
+	 * Find a specific (non-fallback) provider for a URL, excluding the Open Graph
+	 * catch-all (which matches any http(s) URL). Used by auto-embed-on-paste so we
+	 * only convert links a real provider recognizes, not every URL pasted.
+	 */
+	findSpecificProvider(url: string): EmbedProvider | null {
+		for (const provider of this.providers) {
+			if (provider.id === "opengraph") continue;
+			if (provider.test(url)) return provider;
+		}
+		return null;
+	}
+
 	async render(url: string, container: HTMLElement): Promise<boolean> {
 		const provider = this.findProvider(url);
 		if (!provider) return false;
