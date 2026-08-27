@@ -69,6 +69,14 @@ export default defineConfig([
         __dirname: "readonly",
         __filename: "readonly"
       }
+    },
+    // Build tooling runs in Node, not inside the plugin sandbox, so the
+    // mobile-compatibility and console restrictions that apply to plugin
+    // source are not relevant here. The scorecard scans plugin source only.
+    rules: {
+      "obsidianmd/no-nodejs-modules": "off",
+      "obsidianmd/rule-custom-message": "off",
+      "no-console": "off"
     }
   },
 ]);
