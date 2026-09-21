@@ -84,6 +84,20 @@ Embeds automatically follow your Obsidian theme. You can also force dark or ligh
 - **Theme mode** - Auto (follow Obsidian), always dark, or always light
 - **Cache duration** - How long fetched data is cached in memory (0 to disable)
 
+## Roadmap
+
+Providers under consideration, in rough priority order. None of these are committed, and each needs to be verified rendering inside Obsidian before it ships: a published embed URL does not guarantee the provider allows framing in Electron.
+
+**Likely first:** tldraw, Desmos, Observable, CodeSandbox, Replit. All embed without a login, all suit note taking, and CodeSandbox and Replit sit alongside the existing CodePen support.
+
+**After that:** Google Maps, Google Slides, Google Calendar, Canva. These only embed when the content is shared publicly, so a private document shows an error rather than a preview.
+
+**Lower priority:** Val Town, Felt, Scratch.
+
+YouTube is deliberately absent. Obsidian embeds it natively, so a provider here would duplicate that.
+
+Adding a provider widens the set of third parties a vault talks to, so the list stays deliberately short rather than exhaustive.
+
 ## Installation
 
 ### Community Plugins Search
